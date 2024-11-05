@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no">
+
+  <title>SSY</title>
+  <meta name="description" content="Simple Scotland Yard in HTML">
+  <meta name="author" content="pvx">
+
+<!-- * style {{{ -->
+<style>
+@keyframes blink
+{
+  50% { opacity: 0; }
+}
+
+@keyframes scale
+{
+    0% { transform: scale(3); }
+    100% { transform: scale(1); }
+}
+
+#svgs
+{
+    display:none;
+}
+
+#map
+{
+    background-size: cover;
+    position: relative;
+}
+
+#play
+{
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    max-height: 99vh;
+    overflow-y: auto;
+    border: 3px solid black;
+    background: lightgray;
+}
+
+#play > div
+{
+    margin: 1rem;
+}
+
+#playerpos p
+{
+    font-size: 120%;
+    cursor: pointer;
+}
+
+#playerpos p.cur
+{
+    background: lightskyblue;
+}
+
+#playerpos svg, #movelist svg
+{
+    width: 24px;
+}
+
+#playerpos b
+{
+    display: block;
+    float: right;
+}
+
+#movelist tt
+{
+    display: inline-block;
+    font-weight: normal;
+    width: 3.3rem;
+}
+
+#movetbl.small
+{
+    max-height: 4em;
+    overflow: hidden;
+}
+
+#setupwrap, #movewrap
+{
+    border: 3px solid lightskyblue;
+}
+
+#moveinfo
+{
+    line-height: 2;
+}
+
+#qrmove
+{
+    background: white;
+}
+
+h1,h2
+{
+    font-size: 1.2em;
+    text-align: center;
+    cursor: pointer;
+}
+
+h4
+{
+    font-size: 100%;
+    margin: 0;
+    /* for FF */
+    margin-block: 0;
+    padding: 0 0 0.3rem 0;
+}
+
+button, select
+{
+    font-size: 200%;
+    /*font-size: inherit;*/
+    min-width: 4rem;
+}
+
+button.sel
+{
+    background: lightblue;
+}
+
+.player
+{
+    display: block;
+    position: absolute;
+}
+
+.player.cur
+{
+    animation: scale 1s linear, blink 2s ease-in-out 3 1s;
+}
+
+footer
+{
+    color: gray;
+    text-align: center;
+}
+
+footer .links
+{
+    font-size: 85%;
+}
+
+footer a
+{
+    margin: 0 0.5rem;
+    color: inherit;
+}
+
+.modal
+{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    position: fixed;
+    z-index: 40;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+.modal-background
+{
+    background-color: rgba(10, 10, 10, 0.86);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+}
+
+.modal-card
+{
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 40px);
+    overflow: hidden;
+    margin: 0 auto;
+    background-color: white;
+    z-index: 41;
+    padding: 2em;
+    border-radius: 6px;
+}
+
+</style>
+<!-- * style }}} -->
+
+</head>
+
+<body>
+
+<svg id="svgs"></svg>
+
+<div id="body-wrapper">
+
+<header> <!-- {{{ -->
+</header> <!-- }}} -->
+
+<section id="map"> <!-- {{{ -->
+</section> <!-- }}} -->
+
+<nav id="play"> <!-- {{{ -->
+    <h1>SSY - <span id="name" class="lng"></span></h1>
+    <div>
+        <button id="newgame" class="lng"></button>
+        <button id="setup" class="lng"></button>
+    </div>
+    <div id="setupwrap">
+        <div id="ui-visual">
+        </div>
+    </div>
+    <div id="playerpos">
+    </div>
+    <div id="movelist">
+        <h4 id="moves" class="lng"></h4>
+        <!--table>
+            <thead>
+                <tr>
+                </tr>
+            </thead>
+            <tbody id="movetbl">
+            </tbody>
+        </table-->
+        <div id="movetbl_h">
+        </div>
+        <div id="movetbl">
+        </div>
+    </div>
+    <div id="movewrap">
+        <div id="moveinfo">
+        </div>
+        <div id="qrmove">
+        </div>
+        <select id="move"></select>
+        <button id="move-x">X</button>
+        <button id="move-2">2</button>
+        <button id="go" class="lng"></button>
+    </div>
+    <div id="replay">
+        <button id="rep-f">&#8676;</button>
+        <button id="rep-p">&#8592;</button>
+        <button id="rep-n">&#8594;</button>
+        <button id="rep-l">&#8677;</button>
+    </div>
+</nav> <!-- }}} -->
+
+<footer> <!-- {{{ -->
+    <p><a href="https://github.com/pvx-/ssy">Simple Scotland Yard</a> &copy;2023 PVx, <a href="http://opensource.org/licenses/MIT">MIT License</a></p>
+    <p class="links">Used boards:
+        <a href="https://github.com/tim-koehler/ScotlandYard">Tim Koehler</a>
+        <a href="https://scotland-yard.sourceforge.net">Shashi Mittal</a>
+    </p>
+    <p class="links">Used code:
+        <a href="https://fontawesome.com">Font Awesome</a>
+        <a href="https://github.com/datalog/qrcode-svg">QR Code svg</a> 
+        <a href="https://jquery.com">jQuery</a> 
+    </p>
+</footer> <!-- }}} -->
+
+</div>
+
+<div id="intro" class="modal"> <!-- {{{ -->
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <h1>SSY - Simple Scotland Yard</h1>
+        <h2><a href="https://github.com/pvx-/ssy">Click here for more info</a></h2>
+        <p>Quick info:
+            <ul>
+                <li>Setup UI first (will be stored in browser)</li>
+                <li>"New Game" to (re)start</li>
+                <li>X must scan QR code for position and possible moves</li>
+                <li>Remaining tickets for current player are shown below round number</li>
+                <li>Select move in dropdown and click "Go"</li>
+                <li>X may toggle "X" button for concealed (Black ticket) and/or "2" for double move</li>
+                <li>After game ends, all moves can be replayed</li>
+            </ul>
+        </p>
+        <p>Clickable items:
+            <ul>
+                <li>"SSY" in game window shows this info</li>
+                <li>"Setup" toggles visual settings (mainly element size)</li>
+                <li>Board toggles game window (useful for narrow displays)</li>
+                <li>Player name highlights their game piece on board</li>
+                <li>"Moves" toggles short and full display</li>
+            </ul>
+        </p>
+        <small>Click anywhere to close this window</small>
+    </div>
+</div> <!-- }}} -->
+
+<!-- <script src="jquery-3.7.0.slim.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+<script src="qrcode.min.js"></script>
+<script src="config.js"></script>
+<script src="game.js"></script>
+
+</body>
+
+</html>
+
