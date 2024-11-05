@@ -18,7 +18,7 @@ All the gameplay is in the open, the only thing to keep secret are moves of Mr. 
 
 ## Play
 
-To play with default configuration just open [ssy page](...) in a browser. All gameplay is done using javascript in browser, configuration and status are stored in browser localstorage (cookies). Nothing is sent to the server.
+To play with default configuration just open [ssy page](https://pvx-.github.io/simple-scotland-yard/) in a browser. All gameplay is done using javascript in browser, configuration and status are stored in browser localstorage (cookies). Nothing is sent to the server.
 
 Short info is shown every time you open the page (and can be shown again by clicking on "SSY" title in game window).
 
