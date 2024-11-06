@@ -594,9 +594,13 @@ $().ready(function() // {{{
 
 $('#intro').on('click', function(event) // {{{
 {
-    event.preventDefault();
+    // leave links working
+    if(event.target.tagName != 'A')
+    {
+        event.preventDefault();
 
-    $('#intro').hide();
+        $('#intro').hide();
+    }
 }); // }}}
 
 $('h1').on('click', function(event) // {{{
