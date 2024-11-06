@@ -1,5 +1,7 @@
 # SSY - Simple Scotland Yard (board game)
 
+## [PLAY HERE](https://ssy.pvx.sk)
+
 ## About
 
 Scotland Yard is a board game in which a team of players controlling different detectives cooperate to track down a player controlling a criminal as they move around a board representing the streets of London. It was first published in 1983 and is named after Scotland Yard which is the headquarters of London's Metropolitan Police Service in real-life. Scotland Yard is an asymmetric board game, during which the detective players cooperatively solve a variant of the pursuit–evasion problem. The game is published by Ravensburger in most of Europe and Canada and by Milton Bradley in the United States. It received the Spiel des Jahres (Game of the Year) award in 1983, the same year that it was published. (From [Wikipedia](https://en.wikipedia.org/wiki/Scotland_Yard_%28board_game%29))
@@ -18,7 +20,7 @@ All the gameplay is in the open, the only thing to keep secret are moves of Mr. 
 
 ## Play
 
-To play with default configuration just open [ssy page](https://pvx-.github.io/simple-scotland-yard/) in a browser. All gameplay is done using javascript in browser, configuration and status are stored in browser localstorage (cookies). Nothing is sent to the server.
+To play with default configuration just open [ssy page](https://ssy.pvx.sk) in a browser. All gameplay is done using javascript in browser, configuration and status are stored in browser localstorage (cookies). Nothing is sent to the server.
 
 Short info is shown every time you open the page (and can be shown again by clicking on "SSY" title in game window).
 
