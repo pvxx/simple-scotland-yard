@@ -7,7 +7,7 @@ var ssy_cfg={
         'Detective 2',
         'Detective 3',
         'Detective 4',
-        //'Detective 5',
+        'Detective 5',
     ], // }}}
 
     'rules': { // {{{

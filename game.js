@@ -97,7 +97,7 @@ ssy_init = function() // init page, load running game if any {{{
         // create tags for every player with piece (use href) name and his position
         var itm = ssy_cfg.board.pieces.icons[i].split('|', 2);
         svgcnt += '<symbol id="i-p' + i + '" viewBox="' + itm[0] + '">' + itm[1] + '</symbol>';
-        movetbl += '<tt><svg viewBox="' + itm[0] + '"><use href="#i-p' + i + '"/></svg></tt>';
+        movetbl += '<li><svg viewBox="' + itm[0] + '"><use href="#i-p' + i + '"/></svg></li>';
         $('#map').append('<svg id="p' + i + '" title="' + ssy_cfg.players[i]+ '" class="player" viewBox="' + itm[0] + '"><use href="#i-p' + i + '"/></svg>');
         $('#playerpos').append('<p id="pos' + i + '"><svg viewBox="' + itm[0] + '"><use href="#i-p' + i + '"/></svg> ' + ssy_cfg.players[i]+ ' <b>0</b></p>');
     }
@@ -353,7 +353,7 @@ ssy_ui_redraw = function(all = false) // redraw board from current status {{{
                 'top': ((npos[1] - ssy_cfg.board.pieces.center_y) * ssy_var.ui.visual.board) + 'px',
                 'left': ((npos[0] - ssy_cfg.board.pieces.center_x) * ssy_var.ui.visual.board) + 'px',
             });
-            $('#pos' + i + ' b').html(ssy_int_move_display(i, curs.round, x_shown));
+            $('#pos' + i + ' b').html(ssy_int_move_display(i, curs.round, x_shown).substring(1));
         }
         if(curs.what == 'play')
         {
@@ -473,7 +473,7 @@ ssy_ui_tomoves = function(val) // add value to UI history {{{
     // special value for new line
     if(val == 'line')
     {
-        $('#movetbl').prepend('<div></div>');
+        $('#movetbl').prepend('<ul></ul>');
     }
     // special value for whole history
     else if(val == 'history')
@@ -482,12 +482,12 @@ ssy_ui_tomoves = function(val) // add value to UI history {{{
         var hist = ssy_var.state.history;
         for(var h_round = hist.length - 1; h_round >= 0; h_round--)
         {
-            mcnt += '<div>';
+            mcnt += '<ul>';
             for(var h_player = 0; h_player < hist[h_round].length; h_player++)
             {
-                mcnt += '<tt>' + ssy_int_move_display(h_player, h_round, ssy_int_x_shown(h_round)) + '</tt>';
+                mcnt += ssy_ui_fmtmove(ssy_int_move_display(h_player, h_round, ssy_int_x_shown(h_round)));
             }
-            mcnt += '</div>';
+            mcnt += '</ul>';
         }
 
         $('#movetbl').html(mcnt);
@@ -495,8 +495,14 @@ ssy_ui_tomoves = function(val) // add value to UI history {{{
     // default just add new value
     else
     {
-        $('#movetbl div:first').append('<tt>' + val + '</tt>');
+        $('#movetbl ul:first').append(ssy_ui_fmtmove(val));
     }
+} // }}}
+
+ssy_ui_fmtmove = function(mmov, tag = 'li') // format move for output {{{
+{
+    // add move letter as class
+    return '<' + tag + ' class="m_' + mmov[0] + '">' + mmov + '</' + tag + '>';
 } // }}}
 
 ssy_ui_qr = function(msg) // show qr code with content {{{

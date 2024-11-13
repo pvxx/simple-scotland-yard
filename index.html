@@ -71,11 +71,41 @@
     float: right;
 }
 
-#movelist tt
+ul
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#movelist li
 {
     display: inline-block;
     font-weight: normal;
-    width: 3.3rem;
+    width: 5ch;
+    font-family: monospace;
+    margin-right: 1em;
+    padding: 2px;
+}
+
+.m_T
+{
+    background-color: #f4e886;
+}
+
+.m_B
+{
+    background-color: #72bfb5;
+}
+
+.m_U
+{
+    background-color: #e88072;
+}
+
+.m_X
+{
+    background-color: #aaa;
 }
 
 #movetbl.small
@@ -231,8 +261,8 @@ footer a
             <tbody id="movetbl">
             </tbody>
         </table-->
-        <div id="movetbl_h">
-        </div>
+        <ul id="movetbl_h">
+        </ul>
         <div id="movetbl">
         </div>
     </div>
